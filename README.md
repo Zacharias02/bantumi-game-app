@@ -18,13 +18,18 @@ Welcome to the **Bantumi Game App** repository! This project is an implementatio
 
 The Bantumi Game App is a digital version of the traditional Bantumi board game. It aims to provide an engaging and interactive experience for users who want to play and enjoy this timeless game.
 
-## Screenshot
+## Screenshots
 
 Here’s a visual preview of the Bantumi Game App:
-
-![App Screenshot](path/to/screenshot.png)
-
-> _Replace `path/to/screenshot.png` with the actual path to your screenshot image._
+<div align="center">
+   <picture>
+      <img src="public/assets/screenshots/menu.png" alt="Bantumi Game App Desktop Screenshot" style="max-width: 45%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+   </picture>
+   <picture>
+      <source media="(max-width: 600px)" srcset="public/assets/screenshots/game.png">
+      <img src="public/assets/screenshots/game.png" alt="Bantumi Game App Mobile Screenshot" style="max-width: 45%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-right: 16px;">
+   </picture>
+</div>
 
 ## Getting Started
 
