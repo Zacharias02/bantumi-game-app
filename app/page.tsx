@@ -237,18 +237,45 @@ export default function BantumiGame() {
       </animated.div>
 
       {/* Attribution */}
-      <div className="absolute bottom-4 text-center w-full">
-        <p className="text-lime-400 text-sm nokia-text">
-          Vibe Coded by{" "}
+      <div className="absolute bottom-4 left-4 text-center">
+        <p className="text-lime-400 text-sm nokia-text flex items-center">
+          Vibe coded by{" "}
           <a
-            href="https://jlnecesito.com"
+            href="https://jlnecesito.webflow.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline hover:text-lime-300 transition-colors"
+            className="underline hover:text-lime-300 transition-colors ml-1"
           >
-            JL Necesito
+            jlnecesito
           </a>
+        <img src="assets/rocket.svg" alt="Rocket Icon" className="w-6 h-6 ml-1" />
         </p>
+      </div>
+      <div className="absolute bottom-4 right-4 flex space-x-2">
+        <a
+          href="https://github.com/Zacharias02/bantumi-game-app"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub"
+        >
+          <img src="assets/github.svg" alt="Github Icon" className="w-7 h-7 ml-1" />
+        </a>
+        <a
+          href="https://www.facebook.com/jlnecesito02"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Facebook"
+        >
+          <img src="assets/facebook.svg" alt="Facebook Icon" className="w-7 h-7 ml-1" />
+        </a>
+        <a
+          href="https://www.linkedin.com/in/john-lester-necesito"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn"
+        >
+          <img src="assets/linkedin.svg" alt="LinkedIn Icon" className="w-7 h-7 ml-1" />
+        </a>
       </div>
 
       {/* Modals */}

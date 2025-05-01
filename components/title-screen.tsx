@@ -46,8 +46,6 @@ function TitleScreenComponent({ onStartGame, onStartAIGame, onShowInstructions }
           </button>
         ))}
       </div>
-
-      <div className="mt-6 text-xs text-nokia-dark nokia-text">© 2023 NOKIA 3310</div>
     </div>
   )
 }
