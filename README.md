@@ -1,7 +1,5 @@
 # [Bantumi Game App]
 
-**Play now:** https://play-bantumi.vercel.app/
-
 Welcome to the **Bantumi Game App** repository! This project is an implementation of the classic Bantumi (or Mancala) game, built primarily using **Next.js**, with additional support from **TailwindCSS**.
 
 > **Vibe Coded by v0 and Github Copilot** ✨
