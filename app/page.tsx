@@ -216,99 +216,55 @@ export default function BantumiGame() {
       </header>
   
       {/* Main content */}
-      <main className="flex-1 flex flex-col items-center justify-center w-full">
+      <main className="flex-1 flex flex-col items-center justify-start w-full pt-4 pb-6 md:pb-6 sm:pb-20 overflow-y-auto">
         <animated.div
           style={screenProps}
-          className="relative w-full max-w-md flex items-center justify-center max-h-[90vh] md:max-h-none"
+          className="relative w-full max-w-md flex items-center justify-center max-h-[90vh] md:max-h-none overflow-y-auto"
         >
           <NokiaPhone>
-            {currentScreen === "title" && (
-              <TitleScreen
-                onStartGame={() => startNewGame(false)}
-                onStartAIGame={() => startNewGame(true)}
-                onShowInstructions={toggleInstructions}
-              />
-            )}
+        {currentScreen === "title" && (
+          <TitleScreen
+        onStartGame={() => startNewGame(false)}
+        onStartAIGame={() => startNewGame(true)}
+        onShowInstructions={toggleInstructions}
+          />
+        )}
 
-            {currentScreen === "game" && (
-              <>
-                <GameControls
-                  currentPlayer={gameState.currentPlayer}
-                  onPauseClick={handlePauseClick}
-                  onQuitClick={handleQuitClick}
-                  gameState={gameState}
-                  playAgainstAI={playAgainstAI}
-                />
+        {currentScreen === "game" && (
+          <>
+        <GameControls
+          currentPlayer={gameState.currentPlayer}
+          onPauseClick={handlePauseClick}
+          onQuitClick={handleQuitClick}
+          gameState={gameState}
+          playAgainstAI={playAgainstAI}
+        />
 
-                <GameBoard
-                  gameState={gameState}
-                  selectedPit={selectedPit}
-                  onPitSelect={handlePitSelect}
-                  animating={animating}
-                  playAgainstAI={playAgainstAI}
-                  currentAnimationPit={animationState.currentPit}
-                />
+        <GameBoard
+          gameState={gameState}
+          selectedPit={selectedPit}
+          onPitSelect={handlePitSelect}
+          animating={animating}
+          playAgainstAI={playAgainstAI}
+          currentAnimationPit={animationState.currentPit}
+        />
 
-                {isPaused && <PauseOverlay onResume={handleResumeClick} />}
-              </>
-            )}
+        {isPaused && <PauseOverlay onResume={handleResumeClick} />}
+          </>
+        )}
 
-            {currentScreen === "gameOver" && (
-              <GameOverScreen
-                gameState={gameState}
-                onPlayAgain={() => startNewGame(playAgainstAI)}
-                onMenuClick={returnToTitle}
-                playAgainstAI={playAgainstAI}
-              />
-            )}
+        {currentScreen === "gameOver" && (
+          <GameOverScreen
+        gameState={gameState}
+        onPlayAgain={() => startNewGame(playAgainstAI)}
+        onMenuClick={returnToTitle}
+        playAgainstAI={playAgainstAI}
+          />
+        )}
           </NokiaPhone>
         </animated.div>
       </main>
-  
-      {/* Footer
-      <footer className="w-full flex justify-between items-end px-4 py-4 md:flex-row flex-col md:items-end items-center md:space-y-0 space-y-2 bg-transparent">
-        <div className="text-center flex items-center mb-2 md:mb-0">
-          <p className="text-lime-400 text-sm nokia-text flex items-center">
-            Vibe coded by{" "}
-            <a
-              href="https://jlnecesito.webflow.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline hover:text-lime-300 transition-colors ml-1"
-            >
-              jlnecesito
-            </a>
-            <img src="assets/rocket.svg" alt="Rocket Icon" className="w-6 h-6 ml-1" />
-          </p>
-        </div>
-        <div className="flex space-x-2 mb-2 md:mb-0">
-          <a
-            href="https://github.com/Zacharias02/bantumi-game-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub"
-          >
-            <img src="assets/github.svg" alt="Github Icon" className="w-7 h-7 ml-1" />
-          </a>
-          <a
-            href="https://www.facebook.com/jlnecesito02"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-          >
-            <img src="assets/facebook.svg" alt="Facebook Icon" className="w-7 h-7 ml-1" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/john-lester-necesito"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-          >
-            <img src="assets/linkedin.svg" alt="LinkedIn Icon" className="w-7 h-7 ml-1" />
-          </a>
-        </div>
-      </footer> */}
-  
+
       {/* Modals */}
       {showQuitConfirmation && (
         <ConfirmationModal

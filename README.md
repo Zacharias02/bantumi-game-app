@@ -1,6 +1,6 @@
-# [Bantumi Game App]
+# Bantumi Game App
 
-Welcome to the **Bantumi Game App** repository! This project is an implementation of the classic Bantumi (or Mancala) game, built primarily using **Next.js**, with additional support from **TailwindCSS**.
+Welcome to the **Bantumi Game App** repository! This project is an implementation of the classic Bantumi (or Mancala) game, built primarily using **Next.js**, **Typescript**, and with additional support from **TailwindCSS**.
 
 > **Vibe Coded by v0 and Github Copilot** ✨
 
@@ -11,6 +11,7 @@ Welcome to the **Bantumi Game App** repository! This project is an implementatio
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [License](#license)
+- [Assets & Attribution](#assets--attribution)
 
 ## About the Project
 
@@ -19,15 +20,22 @@ The Bantumi Game App is a digital version of the traditional Bantumi board game.
 ## Screenshots
 
 Here’s a visual preview of the Bantumi Game App:
-<div align="center">
-   <picture>
-      <img src="public/assets/screenshots/menu.png" alt="Bantumi Game App Desktop Screenshot" style="max-width: 45%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-   </picture>
-   <picture>
-      <source media="(max-width: 600px)" srcset="public/assets/screenshots/game.png">
-      <img src="public/assets/screenshots/game.png" alt="Bantumi Game App Mobile Screenshot" style="max-width: 45%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-right: 16px;">
-   </picture>
-</div>
+<table>
+   <tr>
+      <td align="center">
+         <img src="public/assets/screenshots/menu.png" alt="Bantumi Game App Desktop Screenshot" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+         <br>
+         <strong>Main Menu</strong>
+      </td>
+      <td align="center">
+         <img src="public/assets/screenshots/game.png" alt="Bantumi Game App Mobile Screenshot" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+         <br>
+         <strong>In-game UI</strong>
+      </td>
+   </tr>
+</table>
+
+*On smaller screens, scroll horizontally to view both images.*
 
 ## Getting Started
 
@@ -68,3 +76,12 @@ To get started with this project, follow these steps:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Assets & Attribution
+
+We are grateful to the creators of the assets and fonts used in this project. Their work helps bring the Bantumi Game App to life and enhances the user experience.
+
+- [Pixel Icon Library](https://pixeliconlibrary.com/) (see their site for license details)
+- [Nokia Cellphone](https://www.dafont.com/nokia-cellphone.font) by Zeh Fernando (see dafont.com for license details)
+
+If you use or modify these assets, please respect their respective licenses.
