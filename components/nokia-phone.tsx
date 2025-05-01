@@ -1,9 +1,13 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, memo } from "react"
 import type React from "react"
 
-export function NokiaPhone({ children }: { children: React.ReactNode }) {
+interface NokiaPhoneProps {
+  children: React.ReactNode
+}
+
+function NokiaPhoneComponent({ children }: NokiaPhoneProps) {
   const phoneRef = useRef<HTMLDivElement>(null)
 
   return (
@@ -11,11 +15,11 @@ export function NokiaPhone({ children }: { children: React.ReactNode }) {
       {/* Phone body */}
       <div
         ref={phoneRef}
-        className="relative bg-slate-800 rounded-3xl p-4 shadow-2xl transform transition-all duration-500 ease-out"
+        className="relative bg-slate-800 rounded-3xl p-3 shadow-2xl transform transition-all duration-500 ease-out"
         style={{
           width: "100%",
           maxWidth: "320px",
-          height: "min(90vh, 600px)",
+          height: "min(85vh, 580px)",
           aspectRatio: "1/2",
         }}
       >
@@ -48,3 +52,6 @@ export function NokiaPhone({ children }: { children: React.ReactNode }) {
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const NokiaPhone = memo(NokiaPhoneComponent)

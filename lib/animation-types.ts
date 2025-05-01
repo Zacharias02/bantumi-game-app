@@ -1,3 +1,6 @@
+/**
+ * Represents the current state of the animation
+ */
 export interface AnimationState {
   isAnimating: boolean
   currentPit: number | null
@@ -6,6 +9,9 @@ export interface AnimationState {
   currentStep: number
 }
 
+/**
+ * Initial state for animations
+ */
 export const initialAnimationState: AnimationState = {
   isAnimating: false,
   currentPit: null,

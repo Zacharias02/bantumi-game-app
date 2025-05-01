@@ -1,10 +1,12 @@
 "use client"
 
+import { memo } from "react"
+
 interface PauseOverlayProps {
   onResume: () => void
 }
 
-export function PauseOverlay({ onResume }: PauseOverlayProps) {
+function PauseOverlayComponent({ onResume }: PauseOverlayProps) {
   return (
     <div className="absolute inset-0 bg-lime-300 bg-opacity-80 z-10 flex flex-col items-center justify-center nokia-text">
       <div className="bg-lime-400 border-2 border-nokia-dark p-4 rounded-lg shadow-md">
@@ -20,3 +22,6 @@ export function PauseOverlay({ onResume }: PauseOverlayProps) {
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const PauseOverlay = memo(PauseOverlayComponent)

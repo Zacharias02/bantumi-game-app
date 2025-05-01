@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useSpring, animated } from "@react-spring/web"
 import { GameBoard } from "@/components/game-board"
 import { type GameState, Player } from "@/lib/game-types"
@@ -15,15 +15,20 @@ import { PauseOverlay } from "@/components/pause-overlay"
 import { type AnimationState, initialAnimationState } from "@/lib/animation-types"
 
 export default function BantumiGame() {
+  // Game state
   const [gameState, setGameState] = useState<GameState>(initialGameState)
   const [selectedPit, setSelectedPit] = useState<number | null>(null)
   const [currentScreen, setCurrentScreen] = useState<"title" | "game" | "gameOver">("title")
+
+  // UI state
   const [animating, setAnimating] = useState(false)
   const [playAgainstAI, setPlayAgainstAI] = useState(false)
-  const [animationState, setAnimationState] = useState<AnimationState>(initialAnimationState)
+  const [isPaused, setIsPaused] = useState(false)
   const [showQuitConfirmation, setShowQuitConfirmation] = useState(false)
   const [showInstructions, setShowInstructions] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
+
+  // Animation state
+  const [animationState, setAnimationState] = useState<AnimationState>(initialAnimationState)
 
   // Nokia 3310 screen animation
   const screenProps = useSpring({
@@ -35,8 +40,6 @@ export default function BantumiGame() {
   // Process animation steps
   useEffect(() => {
     if (animationState.isAnimating && animationState.steps.length > 0 && !isPaused) {
-      const currentStep = animationState.steps[animationState.currentStep]
-
       const timer = setTimeout(() => {
         // Move to next animation step
         if (animationState.currentStep < animationState.steps.length - 1) {
@@ -102,84 +105,89 @@ export default function BantumiGame() {
     }
   }, [gameState, currentScreen, animating, playAgainstAI, isPaused])
 
-  const handlePitSelect = (pitIndex: number) => {
-    if (
-      animating ||
-      gameState.gameOver ||
-      isPaused ||
-      (gameState.currentPlayer === Player.One && pitIndex > 5) ||
-      (gameState.currentPlayer === Player.Two && pitIndex < 6 && !playAgainstAI) ||
-      gameState.board[pitIndex] === 0
-    ) {
-      return
-    }
+  // Memoize handlers to prevent unnecessary re-renders
+  const handlePitSelect = useCallback(
+    (pitIndex: number) => {
+      if (
+        animating ||
+        gameState.gameOver ||
+        isPaused ||
+        (gameState.currentPlayer === Player.One && pitIndex > 5) ||
+        (gameState.currentPlayer === Player.Two && pitIndex < 6 && !playAgainstAI) ||
+        gameState.board[pitIndex] === 0
+      ) {
+        return
+      }
 
-    setSelectedPit(pitIndex)
-    setAnimating(true)
+      setSelectedPit(pitIndex)
+      setAnimating(true)
 
-    // Generate move steps for animation
-    const { finalState, steps } = generateMoveSteps(gameState, pitIndex)
+      // Generate move steps for animation
+      const { finalState, steps } = generateMoveSteps(gameState, pitIndex)
 
-    // Start animation
-    setAnimationState({
-      isAnimating: true,
-      currentPit: pitIndex,
-      seedsInHand: gameState.board[pitIndex],
-      steps,
-      currentStep: 0,
-    })
+      // Start animation
+      setAnimationState({
+        isAnimating: true,
+        currentPit: pitIndex,
+        seedsInHand: gameState.board[pitIndex],
+        steps,
+        currentStep: 0,
+      })
 
-    // Update game state
-    setGameState(finalState)
-  }
+      // Update game state
+      setGameState(finalState)
+    },
+    [animating, gameState, isPaused, playAgainstAI],
+  )
 
-  const startNewGame = (againstAI = false) => {
+  const startNewGame = useCallback((againstAI = false) => {
     setGameState(initialGameState)
     setPlayAgainstAI(againstAI)
     setCurrentScreen("game")
     setAnimationState(initialAnimationState)
     setIsPaused(false)
-  }
+  }, [])
 
-  const returnToTitle = () => {
+  const returnToTitle = useCallback(() => {
     setCurrentScreen("title")
     setIsPaused(false)
-  }
+  }, [])
 
-  const handlePauseClick = () => {
+  const handlePauseClick = useCallback(() => {
     setIsPaused(true)
-  }
+  }, [])
 
-  const handleResumeClick = () => {
+  const handleResumeClick = useCallback(() => {
     setIsPaused(false)
-  }
+  }, [])
 
-  const handleQuitClick = () => {
+  const handleQuitClick = useCallback(() => {
     setShowQuitConfirmation(true)
-  }
+  }, [])
 
-  const handleQuitConfirm = () => {
+  const handleQuitConfirm = useCallback(() => {
     setShowQuitConfirmation(false)
     returnToTitle()
-  }
+  }, [returnToTitle])
 
-  const handleQuitCancel = () => {
+  const handleQuitCancel = useCallback(() => {
     setShowQuitConfirmation(false)
-  }
+  }, [])
 
-  const toggleInstructions = () => {
-    setShowInstructions(!showInstructions)
-  }
+  const toggleInstructions = useCallback(() => {
+    setShowInstructions((prev) => !prev)
+  }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen overflow-hidden bg-gray-900">
+    <div className="flex flex-col items-center justify-center h-screen w-screen overflow-hidden bg-gray-900 touch-auto">
       {/* Game title */}
       <div className="absolute top-4 left-4 text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
 
       {/* Instructions button */}
       <button
-        className="absolute top-4 right-4 text-lime-400 text-2xl font-bold hover:text-lime-500"
+        className="absolute top-4 right-4 text-lime-400 text-2xl font-bold hover:text-lime-500 p-2 touch-auto"
         onClick={toggleInstructions}
+        aria-label="Instructions"
       >
         ?
       </button>
@@ -227,6 +235,21 @@ export default function BantumiGame() {
           )}
         </NokiaPhone>
       </animated.div>
+
+      {/* Attribution */}
+      <div className="absolute bottom-4 text-center w-full">
+        <p className="text-lime-400 text-sm nokia-text">
+          Vibe Coded by{" "}
+          <a
+            href="https://jlnecesito.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-lime-300 transition-colors"
+          >
+            JL Necesito
+          </a>
+        </p>
+      </div>
 
       {/* Modals */}
       {showQuitConfirmation && (

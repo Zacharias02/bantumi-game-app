@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 
 interface TitleScreenProps {
   onStartGame: () => void
@@ -8,7 +8,7 @@ interface TitleScreenProps {
   onShowInstructions: () => void
 }
 
-export function TitleScreen({ onStartGame, onStartAIGame, onShowInstructions }: TitleScreenProps) {
+function TitleScreenComponent({ onStartGame, onStartAIGame, onShowInstructions }: TitleScreenProps) {
   const [selectedOption, setSelectedOption] = useState<number>(0)
   const options = [
     { label: "1 PLAYER", action: onStartAIGame },
@@ -51,3 +51,6 @@ export function TitleScreen({ onStartGame, onStartAIGame, onShowInstructions }: 
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const TitleScreen = memo(TitleScreenComponent)

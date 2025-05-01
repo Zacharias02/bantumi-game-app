@@ -1,4 +1,5 @@
 "use client"
+import { memo } from "react"
 import type { Player, GameState } from "@/lib/game-types"
 
 interface GameControlsProps {
@@ -9,7 +10,7 @@ interface GameControlsProps {
   playAgainstAI?: boolean
 }
 
-export function GameControls({
+function GameControlsComponent({
   currentPlayer,
   onPauseClick,
   onQuitClick,
@@ -38,3 +39,6 @@ export function GameControls({
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const GameControls = memo(GameControlsComponent)

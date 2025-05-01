@@ -1,10 +1,14 @@
 "use client"
 
+import { memo } from "react"
+
 interface SeedDisplayProps {
   count: number
 }
 
-export function SeedDisplay({ count }: SeedDisplayProps) {
-  // For simplicity, we'll just show the number
+function SeedDisplayComponent({ count }: SeedDisplayProps) {
   return <span className="text-nokia-dark font-bold nokia-text">{count}</span>
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const SeedDisplay = memo(SeedDisplayComponent)

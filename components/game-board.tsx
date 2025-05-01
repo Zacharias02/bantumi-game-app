@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, memo } from "react"
 import { type GameState, Player } from "@/lib/game-types"
 import { SeedDisplay } from "./seed-display"
 
@@ -13,7 +13,7 @@ interface GameBoardProps {
   currentAnimationPit?: number | null
 }
 
-export function GameBoard({
+function GameBoardComponent({
   gameState,
   selectedPit,
   onPitSelect,
@@ -22,13 +22,6 @@ export function GameBoard({
   currentAnimationPit = null,
 }: GameBoardProps) {
   const [hoveredPit, setHoveredPit] = useState<number | null>(null)
-
-  // Helper to get pit position
-  const getPitPosition = (index: number) => {
-    const row = index < 6 ? 1 : 0
-    const col = index < 6 ? index : 11 - index
-    return { row, col }
-  }
 
   // Convert store index (106 or 113) to regular display
   const isPitHighlighted = (index: number) => {
@@ -159,3 +152,6 @@ export function GameBoard({
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const GameBoard = memo(GameBoardComponent)

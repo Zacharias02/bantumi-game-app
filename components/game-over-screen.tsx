@@ -1,5 +1,6 @@
 "use client"
 
+import { memo } from "react"
 import { type GameState, Player } from "@/lib/game-types"
 
 interface GameOverScreenProps {
@@ -9,7 +10,7 @@ interface GameOverScreenProps {
   playAgainstAI?: boolean
 }
 
-export function GameOverScreen({ gameState, onPlayAgain, onMenuClick, playAgainstAI = false }: GameOverScreenProps) {
+function GameOverScreenComponent({ gameState, onPlayAgain, onMenuClick, playAgainstAI = false }: GameOverScreenProps) {
   // Determine winner
   const winner =
     gameState.stores[Player.One] > gameState.stores[Player.Two]
@@ -62,3 +63,6 @@ export function GameOverScreen({ gameState, onPlayAgain, onMenuClick, playAgains
     </div>
   )
 }
+
+// Memoize the component to prevent unnecessary re-renders
+export const GameOverScreen = memo(GameOverScreenComponent)

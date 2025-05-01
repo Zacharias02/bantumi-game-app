@@ -1,5 +1,6 @@
 import { type GameState, Player } from "./game-types"
 
+// Initial game state with 4 seeds in each pit
 export const initialGameState: GameState = {
   board: [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
   stores: [0, 0],
@@ -7,6 +8,10 @@ export const initialGameState: GameState = {
   gameOver: false,
 }
 
+/**
+ * Generates the steps for a move and returns the final state
+ * This is used for animation and game state updates
+ */
 export function generateMoveSteps(
   gameState: GameState,
   pitIndex: number,
@@ -97,11 +102,18 @@ export function generateMoveSteps(
   return { finalState: checkGameOver(newState), steps }
 }
 
+/**
+ * Makes a move without animation steps
+ * This is a simplified version of generateMoveSteps
+ */
 export function makeMove(gameState: GameState, pitIndex: number): GameState {
   const { finalState } = generateMoveSteps(gameState, pitIndex)
   return finalState
 }
 
+/**
+ * Checks if the game is over and updates the state accordingly
+ */
 export function checkGameOver(gameState: GameState): GameState {
   const newState = { ...gameState, board: [...gameState.board], stores: [...gameState.stores] }
 
@@ -131,7 +143,9 @@ export function checkGameOver(gameState: GameState): GameState {
   return newState
 }
 
-// AI move logic
+/**
+ * AI move logic - returns the best move for the AI
+ */
 export function makeAIMove(gameState: GameState) {
   // Clone the current state
   const newState = { ...gameState, board: [...gameState.board], stores: [...gameState.stores] }
