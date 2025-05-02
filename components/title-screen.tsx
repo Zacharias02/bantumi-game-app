@@ -13,7 +13,6 @@ function TitleScreenComponent({ onStartGame, onStartAIGame, onShowInstructions }
   const options = [
     { label: "1 PLAYER", action: onStartAIGame },
     { label: "2 PLAYERS", action: onStartGame },
-    { label: "HELP", action: onShowInstructions },
   ]
 
   return (
@@ -47,10 +46,8 @@ function TitleScreenComponent({ onStartGame, onStartAIGame, onShowInstructions }
           </button>
         ))}
       </div>
-      <div className="mt-10 text-xs text-nokia-dark nokia-text flex items-center justify-center">
-        <span>Vibe coded by jlnecesito</span>
-        <img src="assets/rocket.svg" alt="Rocket Icon" className="w-4 h-4 ml-1" />
-      </div>
+
+      <div className="mt-6 text-xs text-nokia-dark nokia-text">© 2023 NOKIA 3310</div>
     </div>
   )
 }

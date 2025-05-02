@@ -179,91 +179,77 @@ export default function BantumiGame() {
   }, [])
 
   return (
-    <div className="flex flex-col items-center min-h-screen w-screen overflow-x-hidden bg-gray-900 touch-auto pb-8 md:pb-0">
-      {/* Header */}
-      <header className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 bg-transparent space-y-2 md:space-y-0">
-        <div className="text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
-        <div className="flex space-x-2">
+    <div className="flex flex-col items-center justify-center h-screen w-screen overflow-hidden bg-gray-900 touch-auto">
+      {/* Game title */}
+      <div className="absolute top-4 left-4 text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
+
+      {/* Instructions button */}
+      <button
+        className="absolute top-4 right-4 text-lime-400 text-2xl font-bold hover:text-lime-500 p-2 touch-auto"
+        onClick={toggleInstructions}
+        aria-label="Instructions"
+      >
+        ?
+      </button>
+
+      <animated.div style={screenProps} className="relative w-full max-w-md h-full flex items-center justify-center">
+        <NokiaPhone>
+          {currentScreen === "title" && (
+            <TitleScreen
+              onStartGame={() => startNewGame(false)}
+              onStartAIGame={() => startNewGame(true)}
+              onShowInstructions={toggleInstructions}
+            />
+          )}
+
+          {currentScreen === "game" && (
+            <>
+              <GameControls
+                currentPlayer={gameState.currentPlayer}
+                onPauseClick={handlePauseClick}
+                onQuitClick={handleQuitClick}
+                gameState={gameState}
+                playAgainstAI={playAgainstAI}
+              />
+
+              <GameBoard
+                gameState={gameState}
+                selectedPit={selectedPit}
+                onPitSelect={handlePitSelect}
+                animating={animating}
+                playAgainstAI={playAgainstAI}
+                currentAnimationPit={animationState.currentPit}
+              />
+
+              {isPaused && <PauseOverlay onResume={handleResumeClick} />}
+            </>
+          )}
+
+          {currentScreen === "gameOver" && (
+            <GameOverScreen
+              gameState={gameState}
+              onPlayAgain={() => startNewGame(playAgainstAI)}
+              onMenuClick={returnToTitle}
+              playAgainstAI={playAgainstAI}
+            />
+          )}
+        </NokiaPhone>
+      </animated.div>
+
+      {/* Attribution */}
+      <div className="absolute bottom-4 text-center w-full">
+        <p className="text-lime-400 text-sm nokia-text">
+          Vibe Coded by{" "}
           <a
-            href="https://github.com/Zacharias02/bantumi-game-app"
+            href="https://jlnecesito.com"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="GitHub">
-            <img src="assets/github.svg" alt="Github Icon" className="w-7 h-7 ml-1" />
+            className="underline hover:text-lime-300 transition-colors"
+          >
+            JL Necesito
           </a>
-          <a
-            href="https://jlnecesito.webflow.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Website">
-              <img src="assets/web3.svg" alt="Website Icon" className="w-7 h-7 ml-1" />
-          </a>
-          <a
-            href="https://www.facebook.com/jlnecesito02"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook">
-              <img src="assets/facebook.svg" alt="Facebook Icon" className="w-7 h-7 ml-1" />
-          </a>
-          <a
-            href="https://www.linkedin.com/in/john-lester-necesito"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn">
-              <img src="assets/linkedin.svg" alt="LinkedIn Icon" className="w-7 h-7 ml-1" />
-          </a>
-        </div>
-      </header>
-  
-      {/* Main content */}
-      <main className="flex-1 flex flex-col items-center justify-start w-full pt-4 pb-6 md:pb-6 sm:pb-20 overflow-y-auto">
-        <animated.div
-          style={screenProps}
-          className="relative w-full max-w-md flex items-center justify-center max-h-[90vh] md:max-h-none overflow-y-auto"
-        >
-          <NokiaPhone>
-        {currentScreen === "title" && (
-          <TitleScreen
-        onStartGame={() => startNewGame(false)}
-        onStartAIGame={() => startNewGame(true)}
-        onShowInstructions={toggleInstructions}
-          />
-        )}
-
-        {currentScreen === "game" && (
-          <>
-        <GameControls
-          currentPlayer={gameState.currentPlayer}
-          onPauseClick={handlePauseClick}
-          onQuitClick={handleQuitClick}
-          gameState={gameState}
-          playAgainstAI={playAgainstAI}
-        />
-
-        <GameBoard
-          gameState={gameState}
-          selectedPit={selectedPit}
-          onPitSelect={handlePitSelect}
-          animating={animating}
-          playAgainstAI={playAgainstAI}
-          currentAnimationPit={animationState.currentPit}
-        />
-
-        {isPaused && <PauseOverlay onResume={handleResumeClick} />}
-          </>
-        )}
-
-        {currentScreen === "gameOver" && (
-          <GameOverScreen
-        gameState={gameState}
-        onPlayAgain={() => startNewGame(playAgainstAI)}
-        onMenuClick={returnToTitle}
-        playAgainstAI={playAgainstAI}
-          />
-        )}
-          </NokiaPhone>
-        </animated.div>
-      </main>
+        </p>
+      </div>
 
       {/* Modals */}
       {showQuitConfirmation && (
@@ -274,7 +260,7 @@ export default function BantumiGame() {
           onCancel={handleQuitCancel}
         />
       )}
-  
+
       {showInstructions && <InstructionsModal onClose={toggleInstructions} />}
     </div>
   )

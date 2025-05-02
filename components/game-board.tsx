@@ -78,7 +78,7 @@ function GameBoardComponent({
 
       {/* Player 2 pits (top row) */}
       <div className="grid grid-cols-6 gap-1 mb-2">
-        {[12, 11, 10, 9, 8, 7].map((i) => {
+        {[11, 10, 9, 8, 7, 6].map((i) => {
           const isSelectable = gameState.currentPlayer === Player.Two && !playAgainstAI && gameState.board[i] > 0
           const isHighlighted = isPitHighlighted(i)
           return (
@@ -103,7 +103,7 @@ function GameBoardComponent({
       {/* Stores (mancalas) */}
       <div className="flex justify-between w-full px-1 mb-2">
         <div
-          className={`w-8 h-16 rounded-lg ${isPitHighlighted(1) ? "bg-lime-600" : "bg-lime-400"} border-2 border-nokia-dark flex items-center justify-center text-sm font-bold nokia-text text-nokia-dark transition-colors duration-200`}
+          className={`w-8 h-16 rounded-lg ${isPitHighlighted(1) ? "bg-lime-600" : "bg-lime-400"} border-2 border-nokia-dark flex items-center justify-center text-sm font-bold nokia-text transition-colors duration-200`}
         >
           {gameState.stores[Player.Two]}
         </div>
@@ -118,7 +118,7 @@ function GameBoardComponent({
         </div>
 
         <div
-          className={`w-8 h-16 rounded-lg ${isPitHighlighted(0) ? "bg-lime-600" : "bg-lime-400"} border-2 border-nokia-dark flex items-center justify-center text-sm font-bold nokia-text text-nokia-dark transition-colors duration-200`}
+          className={`w-8 h-16 rounded-lg ${isPitHighlighted(0) ? "bg-lime-600" : "bg-lime-400"} border-2 border-nokia-dark flex items-center justify-center text-sm font-bold nokia-text transition-colors duration-200`}
         >
           {gameState.stores[Player.One]}
         </div>
