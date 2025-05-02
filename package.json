@@ -67,7 +67,8 @@
     "@react-three/fiber": "latest",
     "@react-three/drei": "latest",
     "@react-spring/three": "latest",
-    "@react-spring/web": "latest"
+    "@react-spring/web": "latest",
+    "@vercel/analytics": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

@@ -1,4 +1,7 @@
 import type React from "react"
+import { Suspense } from "react"
+import { Analytics } from "@vercel/analytics/react"
+
 export default function RootLayout({
   children,
 }: {
@@ -11,7 +14,12 @@ export default function RootLayout({
         <link rel="icon" href="./assets/favicon.ico" />
         <title>Bantumi Game</title>
       </head>
-      <body>{children}</body>
+      <body>        
+        <Suspense>
+          {children}
+          <Analytics />
+        </Suspense>
+      </body>
     </html>
   )
 }
