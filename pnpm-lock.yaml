@@ -106,7 +106,7 @@ importers:
         version: 9.1.2(@types/react@18.3.20)(expo-asset@11.1.4(expo@53.0.4(@babel/core@7.27.1)(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(expo-file-system@18.1.8(expo@53.0.4(@babel/core@7.27.1)(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1)))(expo-gl@15.1.5(expo@53.0.4(@babel/core@7.27.1)(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(expo@53.0.4(@babel/core@7.27.1)(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-native@0.79.1(@babel/core@7.27.1)(@types/react@18.3.20)(react@18.3.1))(react@18.3.1)(three@0.176.0)
       '@vercel/analytics':
         specifier: latest
-        version: 1.5.0(@remix-run/react@2.16.5(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.0.2))(@sveltejs/kit@2.20.8(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.28.2)(vite@6.3.4(@types/node@22.0.0)(jiti@1.21.7)(yaml@2.7.1)))(svelte@5.28.2)(vite@6.3.4(@types/node@22.0.0)(jiti@1.21.7)(yaml@2.7.1)))(next@15.2.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)(svelte@5.28.2)(vue-router@4.5.1(vue@3.5.13(typescript@5.0.2)))(vue@3.5.13(typescript@5.0.2))
+        version: 1.5.0(next@15.2.4(@babel/core@7.27.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
       autoprefixer:
         specifier: ^10.4.20
         version: 10.4.20(postcss@8.0.0)
@@ -1968,6 +1968,32 @@ packages:
     resolution: {integrity: sha512-Yy19y6O2GJq8f7CHf7L0nxL8bf4PZCPaVOCgJrusOeFHY1LvHgYXnmnXg6N5iwAnbgbZCDjo60SiM6IPJi9C5g==}
     peerDependencies:
       react: '>= 16.8.0'
+
+  '@vercel/analytics@1.5.0':
+    resolution: {integrity: sha512-MYsBzfPki4gthY5HnYN7jgInhAZ7Ac1cYDoRWFomwGHWEX7odTEzbtg9kf/QSo7XEsEAqlQugA6gJ2WS2DEa3g==}
+    peerDependencies:
+      '@remix-run/react': ^2
+      '@sveltejs/kit': ^1 || ^2
+      next: '>= 13'
+      react: ^18 || ^19 || ^19.0.0-rc
+      svelte: '>= 4'
+      vue: ^3
+      vue-router: ^4
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@sveltejs/kit':
+        optional: true
+      next:
+        optional: true
+      react:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
+      vue-router:
+        optional: true
 
   '@webgpu/types@0.1.60':
     resolution: {integrity: sha512-8B/tdfRFKdrnejqmvq95ogp8tf52oZ51p3f4QD5m5Paey/qlX4Rhhy5Y8tgFMi7Ms70HzcMMw3EQjH/jdhTwlA==}
@@ -6500,6 +6526,11 @@ snapshots:
   '@use-gesture/react@10.3.1(react@18.3.1)':
     dependencies:
       '@use-gesture/core': 10.3.1
+      react: 18.3.1
+
+  '@vercel/analytics@1.5.0(next@15.2.4(@babel/core@7.27.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)':
+    optionalDependencies:
+      next: 15.2.4(@babel/core@7.27.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react: 18.3.1
 
   '@webgpu/types@0.1.60': {}
