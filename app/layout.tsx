@@ -1,7 +1,4 @@
 import type React from "react"
-import { Analytics } from "@vercel/analytics/react"
-import { Suspense } from "react"
-
 export default function RootLayout({
   children,
 }: {
@@ -13,12 +10,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <title>Bantumi Game</title>
       </head>
-      <body>
-        <Suspense>
-          {children}
-          <Analytics />
-        </Suspense>
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
