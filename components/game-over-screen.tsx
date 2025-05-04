@@ -20,10 +20,12 @@ function GameOverScreenComponent({ gameState, onPlayAgain, onMenuClick, playAgai
         ? Player.Two
         : null
 
-  if (playAgainstAI && winner === Player.Two) {
-    playGameOverSound();
-  } else if ((playAgainstAI && winner === Player.One) || (!playAgainstAI && winner !== null)) {
-    playWinnerSound();
+  if (winner !== null) {
+    if (playAgainstAI) {
+      winner === Player.One ? playWinnerSound() : playGameOverSound();
+    } else {
+      playWinnerSound();
+    }
   }
 
   return (
