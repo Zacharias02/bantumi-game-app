@@ -197,7 +197,7 @@ export default function BantumiGame() {
       <header className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 bg-transparent space-y-2 md:space-y-0">
         <div className="flex items-center">
           <div className="text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
-          <div className="text-lime-300 text-xs nokia-text ml-2">v0.2.2</div>
+          <div className="text-lime-300 text-xs nokia-text ml-2">v0.3.2</div>
         </div>
         <div className="flex space-x-2">
           <a

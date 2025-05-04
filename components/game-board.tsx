@@ -53,23 +53,6 @@ function GameBoardComponent({
     return gameState.currentPlayer === Player.One ? "bottom" : "top";
   };
 
-  // Get hand emoji based on position
-  const getHandEmoji = () => {
-    const position = getHandPosition()
-    switch (position) {
-      case "top":
-        return "👆"
-      case "bottom":
-        return "👇"
-      case "left":
-        return "👈"
-      case "right":
-        return "👉"
-      default:
-        return gameState.currentPlayer === Player.One ? "👇" : "👆"
-    }
-  }
-
   return (
     <div className="w-full h-full flex flex-col items-center justify-center pt-10">
       <div className="text-center mb-2 text-nokia-dark text-xs font-bold nokia-text">
@@ -118,11 +101,13 @@ function GameBoardComponent({
 
         {/* Current player indicator */}
         <div className="flex items-center justify-center">
-            <div
-            className={`w-6 h-6 flex items-center justify-center text-xl`}
-            >
-            {animating ? "⏳" : getHandEmoji()}
+          {animating ? (
+            <div className="text-nokia-dark font-bold nokia-text text-xl">⏳</div>
+          ) : (
+            <div className="text-nokia-dark font-bold nokia-text text-xs">
+              {playAgainstAI && gameState.currentPlayer === 1 ? "AI TURN" : `P${gameState.currentPlayer + 1} TURN`}
             </div>
+          )}
         </div>
 
         <div
