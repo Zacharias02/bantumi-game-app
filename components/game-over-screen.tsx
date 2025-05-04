@@ -2,6 +2,7 @@
 
 import { memo } from "react"
 import { type GameState, Player } from "@/lib/game-types"
+import { playGameOverSound, playWinnerSound } from "@/lib/sounds"
 
 interface GameOverScreenProps {
   gameState: GameState
@@ -19,6 +20,12 @@ function GameOverScreenComponent({ gameState, onPlayAgain, onMenuClick, playAgai
         ? Player.Two
         : null
 
+  if (playAgainstAI && winner === Player.Two) {
+    playGameOverSound();
+  } else if ((playAgainstAI && winner === Player.One) || (!playAgainstAI && winner !== null)) {
+    playWinnerSound();
+  }
+
   return (
     <div className="w-full h-full flex flex-col items-center justify-center">
       <h1 className="text-xl font-bold text-nokia-dark mb-4 nokia-text">GAME OVER</h1>
@@ -27,8 +34,8 @@ function GameOverScreenComponent({ gameState, onPlayAgain, onMenuClick, playAgai
         {winner === null
           ? "IT'S A TIE!"
           : `${winner === Player.One 
-              ? (playAgainstAI ? "YOU" : "PLAYER 1") 
-              : (playAgainstAI ? "COMPUTER" : "PLAYER 2")} WINS!`}
+              ? (playAgainstAI ? "YOU WIN!" : "PLAYER 1 WINS!") 
+              : (playAgainstAI ? "COMPUTER WINS!" : "PLAYER 2 WINS!")}`}
       </div>
 
       <div className="bg-lime-400 border-2 border-nokia-dark rounded-lg p-2 mb-6">

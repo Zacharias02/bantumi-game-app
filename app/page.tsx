@@ -13,6 +13,10 @@ import { ConfirmationModal } from "@/components/confirmation-modal"
 import { InstructionsModal } from "@/components/instructions-modal"
 import { PauseOverlay } from "@/components/pause-overlay"
 import { type AnimationState, initialAnimationState } from "@/lib/animation-types"
+import {
+  playButtonClickSound,
+  playGameOverSound,
+} from "@/lib/sounds";
 
 export default function BantumiGame() {
   // Game state
@@ -119,6 +123,7 @@ export default function BantumiGame() {
         return
       }
 
+      playButtonClickSound()
       setSelectedPit(pitIndex)
       setAnimating(true)
 
@@ -128,7 +133,7 @@ export default function BantumiGame() {
       // Start animation
       setAnimationState({
         isAnimating: true,
-        currentPit: pitIndex,
+        currentPit: steps[0]?.pit ?? pitIndex, // Use the first step's pit if available
         seedsInHand: gameState.board[pitIndex],
         steps,
         currentStep: 0,
@@ -141,6 +146,7 @@ export default function BantumiGame() {
   )
 
   const startNewGame = useCallback((againstAI = false) => {
+    playButtonClickSound();
     setGameState(initialGameState)
     setPlayAgainstAI(againstAI)
     setCurrentScreen("game")
@@ -149,32 +155,39 @@ export default function BantumiGame() {
   }, [])
 
   const returnToTitle = useCallback(() => {
+    playButtonClickSound();
     setCurrentScreen("title")
     setIsPaused(false)
   }, [])
 
   const handlePauseClick = useCallback(() => {
+    playButtonClickSound();
     setIsPaused(true)
   }, [])
 
   const handleResumeClick = useCallback(() => {
+    playButtonClickSound();
     setIsPaused(false)
   }, [])
 
   const handleQuitClick = useCallback(() => {
+    playButtonClickSound();
     setShowQuitConfirmation(true)
   }, [])
 
   const handleQuitConfirm = useCallback(() => {
+    playButtonClickSound();
     setShowQuitConfirmation(false)
     returnToTitle()
   }, [returnToTitle])
 
   const handleQuitCancel = useCallback(() => {
+    playButtonClickSound();
     setShowQuitConfirmation(false)
   }, [])
 
   const toggleInstructions = useCallback(() => {
+    playButtonClickSound();
     setShowInstructions((prev) => !prev)
   }, [])
 
@@ -184,7 +197,7 @@ export default function BantumiGame() {
       <header className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 bg-transparent space-y-2 md:space-y-0">
         <div className="flex items-center">
           <div className="text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
-          <div className="text-lime-300 text-xs nokia-text ml-2">v0.1.1</div>
+          <div className="text-lime-300 text-xs nokia-text ml-2">v0.1.2</div>
         </div>
         <div className="flex space-x-2">
           <a

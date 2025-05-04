@@ -25,33 +25,33 @@ function GameBoardComponent({
 
   // Convert store index (106 or 113) to regular display
   const isPitHighlighted = (index: number) => {
-    if (currentAnimationPit === null) return false
-    if (currentAnimationPit === index) return true
+    if (currentAnimationPit === null) return false;
+    // Highlight the pit if it's the current animation pit
+    if (currentAnimationPit === index) return true;
 
-    // Handle store highlighting (106 for player 1, 113 for player 2)
-    if (index === 0 && currentAnimationPit === 106) return true
-    if (index === 1 && currentAnimationPit === 113) return true
+    // Highlight store for Player One (left) and Player Two (right)
+    if (index === 0 && currentAnimationPit === 106) return true;
+    if (index === 1 && currentAnimationPit === 113) return true;
 
-    return false
-  }
+    return false;
+  };
 
   // Determine hand emoji position
   const getHandPosition = () => {
-    if (currentAnimationPit === null) {
-      // Default position based on current player
-      return gameState.currentPlayer === Player.One ? "bottom" : "top"
+    if (hoveredPit !== null) {
+      // If hovering over a pit, determine its row
+      if (hoveredPit < 6) return "bottom"; // Player 1 pits
+      if (hoveredPit >= 7 && hoveredPit <= 12) return "top"; // Player 2 pits
     }
-
-    // If pointing to a store
-    if (currentAnimationPit === 106) return "right" // Player 1 store
-    if (currentAnimationPit === 113) return "left" // Player 2 store
-
-    // If pointing to a regular pit
-    if (currentAnimationPit < 6) return "bottom" // Player 1 pits
-    if (currentAnimationPit >= 6 && currentAnimationPit < 12) return "top" // Player 2 pits
-
-    return gameState.currentPlayer === Player.One ? "bottom" : "top" // Default fallback
-  }
+    if (currentAnimationPit === null) {
+      return gameState.currentPlayer === Player.One ? "bottom" : "top";
+    }
+    if (currentAnimationPit === 106) return "right";
+    if (currentAnimationPit === 113) return "left";
+    if (currentAnimationPit < 6) return "bottom";
+    if (currentAnimationPit >= 6 && currentAnimationPit < 12) return "top";
+    return gameState.currentPlayer === Player.One ? "bottom" : "top";
+  };
 
   // Get hand emoji based on position
   const getHandEmoji = () => {
@@ -77,13 +77,19 @@ function GameBoardComponent({
       </div>
 
       {/* Player 2 pits (top row) */}
-      <div className="grid grid-cols-6 gap-1 mb-2">
-        {[12, 11, 10, 9, 8, 7].map((i) => {
-          const isSelectable = gameState.currentPlayer === Player.Two && !playAgainstAI && gameState.board[i] > 0
-          const isHighlighted = isPitHighlighted(i)
-            return (
+      <div className="grid grid-cols-6 gap-1 mb-2 relative">
+        {[12, 11, 10, 9, 8, 7].map((i, idx) => {
+          const isSelectable = gameState.currentPlayer === Player.Two && !playAgainstAI && gameState.board[i] > 0;
+          const isHighlighted = isPitHighlighted(i);
+          return (
+            <div key={`pit-container-${i}`} className="relative flex flex-col items-center">
+              {/* Hand emoji above pit if hovered */}
+              {isPitHighlighted(i) && (
+                <span className="absolute -bottom-8 text-xl animate-bounce">
+                  👆
+                </span>
+              )}
               <button
-                key={`pit-${i}`}
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold nokia-text
                   ${selectedPit === i ? "bg-nokia-dark opacity-50" : isHighlighted ? "bg-nokia-dark opacity-90" : "bg-nokia-dark"} 
                   ${isSelectable ? "hover:bg-nokia-dark cursor-pointer" : "opacity-70 cursor-default"}
@@ -96,7 +102,8 @@ function GameBoardComponent({
               >
                 <SeedDisplay count={gameState.board[i]} textColorClass="text-lime"/>
               </button>
-            )
+            </div>
+          );
         })}
       </div>
 
@@ -111,11 +118,11 @@ function GameBoardComponent({
 
         {/* Current player indicator */}
         <div className="flex items-center justify-center">
-          <div
-            className={`w-6 h-6 flex items-center justify-center animate-pulse ${animating ? "opacity-100" : "opacity-70"}`}
-          >
-            {getHandEmoji()}
-          </div>
+            <div
+            className={`w-6 h-6 flex items-center justify-center text-xl`}
+            >
+            {animating ? "⏳" : getHandEmoji()}
+            </div>
         </div>
 
         <div
@@ -126,26 +133,33 @@ function GameBoardComponent({
       </div>
 
       {/* Player 1 pits (bottom row) */}
-      <div className="grid grid-cols-6 gap-1 mb-2">
+      <div className="grid grid-cols-6 gap-1 mb-2 relative">
         {[0, 1, 2, 3, 4, 5].map((i) => {
-          const isSelectable = gameState.currentPlayer === Player.One && gameState.board[i] > 0
-          const isHighlighted = isPitHighlighted(i)
+          const isSelectable = gameState.currentPlayer === Player.One && gameState.board[i] > 0;
+          const isHighlighted = isPitHighlighted(i);
           return (
-            <button
-              key={`pit-${i}`}
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold nokia-text
-                ${selectedPit === i ? "bg-lime-500" : isHighlighted ? "bg-lime-600" : "bg-lime-400"} 
-                ${isSelectable ? "hover:bg-lime-500 cursor-pointer" : "opacity-70 cursor-default"}
-                ${hoveredPit === i ? "ring-2 ring-lime-700" : ""}
-                border-2 border-nokia-dark transition-colors duration-200`}
-              onClick={() => onPitSelect(i)}
-              onMouseEnter={() => !animating && isSelectable && setHoveredPit(i)}
-              onMouseLeave={() => setHoveredPit(null)}
-              disabled={animating || !isSelectable}
-            >
-              <SeedDisplay count={gameState.board[i]} />
-            </button>
-          )
+            <div key={`pit-container-${i}`} className="relative flex flex-col items-center">
+              {/* Hand emoji above pit if hovered */}
+              {isPitHighlighted(i) && (
+                <span className="absolute -top-8 text-xl animate-bounce">
+                  👇
+                </span>
+              )}
+              <button
+                className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold nokia-text
+                  ${selectedPit === i ? "bg-lime-500" : isHighlighted ? "bg-lime-600" : "bg-lime-400"} 
+                  ${isSelectable ? "hover:bg-lime-500 cursor-pointer" : "opacity-70 cursor-default"}
+                  ${hoveredPit === i ? "ring-2 ring-lime-700" : ""}
+                  border-2 border-nokia-dark transition-colors duration-200`}
+                onClick={() => onPitSelect(i)}
+                onMouseEnter={() => !animating && isSelectable && setHoveredPit(i)}
+                onMouseLeave={() => setHoveredPit(null)}
+                disabled={animating || !isSelectable}
+              >
+                <SeedDisplay count={gameState.board[i]} />
+              </button>
+            </div>
+          );
         })}
       </div>
 
