@@ -40,11 +40,9 @@ Here’s a visual preview of the Bantumi Game App:
 ## Getting Started
 
 To get started with this project, follow these steps:
-
 ### Prerequisites
-
-- Node.js installed on your machine
-- A package manager like npm or yarn
+- [Node.js](https://nodejs.org/) installed on your machine
+- A package manager like [pnpm](https://pnpm.io/)
 
 ### Installation
 
@@ -58,13 +56,13 @@ To get started with this project, follow these steps:
 2. Install dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Start the development server:
 
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 ## Usage

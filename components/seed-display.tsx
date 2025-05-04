@@ -4,10 +4,11 @@ import { memo } from "react"
 
 interface SeedDisplayProps {
   count: number
+  textColorClass?: string
 }
 
-function SeedDisplayComponent({ count }: SeedDisplayProps) {
-  return <span className="text-nokia-dark font-bold nokia-text">{count}</span>
+function SeedDisplayComponent({ count, textColorClass = "text-nokia-dark" }: SeedDisplayProps) {
+  return <span className={`${textColorClass} font-bold nokia-text`}>{count}</span>
 }
 
 // Memoize the component to prevent unnecessary re-renders

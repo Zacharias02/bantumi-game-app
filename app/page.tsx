@@ -182,7 +182,10 @@ export default function BantumiGame() {
     <div className="flex flex-col items-center min-h-screen w-screen overflow-x-hidden bg-gray-900 touch-auto pb-8 md:pb-0">
       {/* Header */}
       <header className="w-full flex flex-col md:flex-row justify-between items-center px-4 py-4 bg-transparent space-y-2 md:space-y-0">
-        <div className="text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
+        <div className="flex items-center">
+          <div className="text-lime-400 text-2xl font-bold nokia-text">BANTUMI</div>
+          <div className="text-lime-300 text-xs nokia-text ml-2">v0.1.1</div>
+        </div>
         <div className="flex space-x-2">
           <a
             href="https://github.com/Zacharias02/bantumi-game-app"

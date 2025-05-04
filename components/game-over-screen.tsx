@@ -26,11 +26,9 @@ function GameOverScreenComponent({ gameState, onPlayAgain, onMenuClick, playAgai
       <div className="text-lg font-bold text-nokia-dark mb-6 nokia-text">
         {winner === null
           ? "IT'S A TIE!"
-          : winner === Player.One
-            ? "YOU WIN!"
-            : playAgainstAI
-              ? "COMPUTER WINS!"
-              : "PLAYER 2 WINS!"}
+          : `${winner === Player.One 
+              ? (playAgainstAI ? "YOU" : "PLAYER 1") 
+              : (playAgainstAI ? "COMPUTER" : "PLAYER 2")} WINS!`}
       </div>
 
       <div className="bg-lime-400 border-2 border-nokia-dark rounded-lg p-2 mb-6">
